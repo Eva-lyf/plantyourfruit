@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+
+    <title>1 INPUT 1 OUTPUT </title>
+   
+    
+</head>
+<body>
+
+    
+    <!-- INPUT FIELD FOR 1 CHARACTER -->
+    <div class="inputs">
+        <div class="field">
+            <input type="text" id="charInput" maxlength="1" placeholder="Enter&nbsp;A-Z">
+            <div class="line"></div>
+        </div>
+
+        <!-- BUTTON TO DISPLAY IMAGE -->
+        <button onclick="displayImage()" id="submitButton">
+            <img src="../images/search.png" alt="Button Image" id="buttonImage">
+            water me
+        </button>
+    </div>
+    <!-- IMAGE TO DISPLAY -->
+     <div class="container">
+        <img id="displayedImage" src="" alt="Displayed Image">
+     </div>
+
+
+    <!-- Image Display Script Below -->
+    <script>
+        // Array of images
+        // DIRECTIONS: UPDATE THE URLS WITH THE RELATIVE LINKS OF YOUR IMAGES
+        const images = [
+            "../images/A.png", //A
+            "../images/B.png", //B
+            "../images/C.png", //C
+            "../images/D.png", //D
+            "../images/E.png", //E
+            "../images/F.png", //F
+            "../images/G.png", //G
+            "../images/H.png", //H
+            "../images/I.png", //I
+            "../images/J.png", //J
+            "../images/K.png", //K
+            "../images/L.png", //L
+            "../images/M.png", //M
+            "../images/N.png", //N
+            "../images/O.png", //O
+            "../images/P.png", //P
+            "../images/Q.png", //Q
+            "../images/R.png", //R
+            "../images/S.png", //S
+            "../images/T.png", //T
+            "../images/U.png", //U
+            "../images/V.png", //V
+            "../images/W.png", //W
+            "../images/X.png", //X
+            "../images/Y.png", //Y
+            "../images/Z.png"  //Z
+        ];
+
+        function displayImage() {
+            const input = document.getElementById("charInput").value.toUpperCase();
+            const imgElement = document.getElementById("displayedImage");
+            
+            // Assign an image based on character (A-Z)
+            const index = input.charCodeAt(0) - 65; // 'A' is 65 in ASCII
+            if (index >= 0 && index < images.length) {
+                imgElement.src = images[index];
+                imgElement.style.display = "block";
+            } else {
+                /* 
+                alert("Please enter a letter between A and Z.");
+                imgElement.style.display = "none";
+                */
+
+                // IF INVALID INPUT IS ENTERED, DISPLAY ALTERNATE IMAGE
+                imgElement.src = "../images/invalid.gif";
+                imgElement.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>

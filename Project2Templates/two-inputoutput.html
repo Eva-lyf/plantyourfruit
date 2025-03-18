@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/shp5oof.css">
+
+    <title>2 INPUT 1 OUTPUT </title>
+    
+</head>
+<body>
+
+
+
+
+
+
+    
+  <div class="fixed-container"> 
+
+    <div class="basket">
+        <img src="../images/basket.png" alt="basket" id="basketImage">
+    </div>
+
+    <div class="title">
+        <h1>
+            plant <br>Your <br>Fruits
+        </h1>
+    </div>
+
+    <div class="foodcart">
+        <img src="../images/foodcart.png" alt="foodcart" id="foodcartImage">
+    </div>
+
+    <div class="inputs">
+        
+        <div class="field">
+        <div class="firstinput">
+            <input type="text" id="charInput1" maxlength="1" placeholder="seed&nbsp;A-Z">
+                <div class="line"></div>
+        </div>
+        
+        <div class="secondinput">
+            <input type="text" id="charInput2" maxlength="1" placeholder="seed&nbsp;A-Z">
+            <div class="line"></div>
+        </div>
+        </div>
+    
+        <div class="button">
+            <button onclick="startAnimation(),displayImage()" id="submitButton">
+                <img src="../images/search.png" alt="Button Image" id="buttonImage">
+                <!-- <p>water me</p> -->
+            </button>
+        </div>
+    </div>
+
+    <div class="animation">
+        <img id="fallingImage" src="../images/animation.png" alt="falling imation">
+    </div>
+
+
+    <!-- IMAGE TO DISPLAY -->
+
+    <!-- <img id="displayedImage" src="" alt="Displayed Image"> -->
+    <div class="container">
+        <img id="displayedImage" src="" alt="Displayed Image">
+     </div>
+</div>
+
+
+
+<script>
+
+document.body.addEventListener("click", function () {
+            document.body.classList.toggle("change-cursor"); 
+        });
+
+
+function startAnimation() {
+    const fallingImg = document.getElementById("fallingImage");
+    const displayedImg = document.getElementById("displayedImage");
+
+    // Reset animation if clicked again
+    fallingImg.style.animation = "none"; // Reset the animation
+    fallingImg.offsetHeight; // Trigger reflow to restart the animation
+    fallingImg.style.animation = "fallDown 2s ease-in-out forwards"; // Reapply the animation
+
+    // Hide the displayed image until animation finishes
+    displayedImg.style.display = "none";
+
+    // Wait for animation to finish before showing displayedImage
+    fallingImg.addEventListener("animationend", function() {
+        displayedImg.style.display = "block"; // Show image after animation
+    }, { once: true }); // Ensures the event runs only once per click
+}
+
+
+
+
+// -------------inputs------------
+
+function displayImage() {
+    const imgElement = document.getElementById("displayedImage");
+
+    // Letter inputs
+    const input1_letter = document.getElementById("charInput1").value.toUpperCase();
+    const input2_letter = document.getElementById("charInput2").value.toUpperCase();
+
+    // Call updateImage function after 2 seconds
+    setTimeout(() => {
+        updateImage(input1_letter, input2_letter);
+        imgElement.style.display = "block"; // Ensure image is displayed
+    }, 1000); // 2-second delay
+}
+
+            
+
+            
+           
+
+//             if(input1_letter === "A" && input2_letter === "A") { 
+//                 imgElement.src = "../images/A.png";
+//                 imgElement.style.display = "block";
+//             } 
+//             else if (input1_letter === "A" && ["C", "O", "P", "S", "U", "V", "W", "X", "Z"].includes(input2_letter)) { 
+//                 imgElement.src = "../2images/Aseed.png";
+//                 imgElement.style.display = "block";
+//             } 
+//             else if (input1_letter === "A") {  
+//                 // Assign one image for all remaining letters  
+//                 imgElement.src = "../2images/Asliced.png"; 
+//                 imgElement.style.display = "block";
+//             } 
+//             else {
+//                 // IF INVALID INPUT IS ENTERED, DISPLAY ALTERNATE IMAGE  
+//                 imgElement.src = "../images/invalid.gif";  
+//                 imgElement.style.display = "block";
+//             }
+
+
+
+function updateImage(input1_letter, input2_letter) {
+    const imgElement = document.getElementById("displayedImage");
+
+    // Check if either input is empty or contains non-alphabet characters
+    if (!input1_letter || !input2_letter || !/^[A-Za-z]$/.test(input1_letter) || !/^[A-Za-z]$/.test(input2_letter)) {
+        imgElement.src = "../images/invalid.gif"; // Show invalid image
+        imgElement.style.display = "block";
+        return; // Exit the function early if inputs are invalid
+    }
+
+    let imgSrc = "../images/invalid.gif"; // Default invalid image
+
+    // Special case for K and P
+    if (input1_letter === "K" && input2_letter === "P") {
+        imgSrc = "../2images/KP.gif"; // Override with KP.gif
+    } 
+    // Check for exact match (input1_letter === input2_letter)
+    else if (input1_letter === input2_letter) {
+        imgSrc = `../images/${input1_letter}.png`; // Exact match image
+    } 
+
+    else if (input2_letter === "L") {
+        imgSrc = `../Limages/${input1_letter}L.png`;
+    }
+
+    // Check for specific letters for seed image
+    else if (["C", "O", "P", "S", "U", "V", "W", "X", "Z"].includes(input2_letter)) {
+        imgSrc = `../2images/${input1_letter}seed.png`; // Seed image for specific letters
+    } 
+    // Default sliced image for other letters
+    else if (input1_letter >= "A" && input1_letter <= "Z") {
+        imgSrc = `../2images/${input1_letter}sliced.png`; 
+    }
+
+    // Update the image source and display it
+    imgElement.src = imgSrc;
+    imgElement.style.display = "block";
+}
+
+
+    </script>
+
+</body>
+</html>
